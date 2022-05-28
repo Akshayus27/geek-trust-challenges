@@ -5,6 +5,7 @@ const {
   isAnyCategorySubscribed,
   isCategorySubscribed,
   isValidDate,
+  isSubscriptionToppedUp,
 } = require('../utils/subscription');
 
 module.exports = class ValidationService {
@@ -21,7 +22,7 @@ module.exports = class ValidationService {
       throw validationError;
     }
 
-    if (SUBSCRIPTION.isToppedUp) {
+    if (isSubscriptionToppedUp()) {
       validationError.message = error.message.duplicate_topup;
       throw validationError;
     }

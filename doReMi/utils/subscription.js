@@ -14,6 +14,10 @@ const isSubscriptionStarted = () => {
   return SUBSCRIPTION.isStarted || NOT_SUBSCRIBED;
 };
 
+const isSubscriptionToppedUp = () => {
+  return SUBSCRIPTION.isToppedUp || NOT_SUBSCRIBED;
+};
+
 const printReminders = () => {
   const renewalDetails = [];
 
@@ -46,6 +50,7 @@ module.exports = {
   isAnyCategorySubscribed,
   isCategorySubscribed,
   isSubscriptionStarted,
+  isSubscriptionToppedUp,
   isValidDate,
   printReminders,
   errorMessage,
