@@ -1,22 +1,24 @@
-const { category } = require('../constants');
+const { CATEGORY, error, STATEMENT, NOT_SUBSCRIBED } = require('../constants');
 
-const checkIfSubscribed = () => {
-  return SUBSCRIPTION[category.MUSIC] || SUBSCRIPTION[category.VIDEO] || SUBSCRIPTION[category.PODCAST] || false;
+const isAnyCategorySubscribed = () => {
+  return (
+    SUBSCRIPTION[CATEGORY.MUSIC] || SUBSCRIPTION[CATEGORY.VIDEO] || SUBSCRIPTION[CATEGORY.PODCAST] || NOT_SUBSCRIBED
+  );
 };
 
-const checkIfSubscriptionExists = (categoryToSubscribe) => {
-  return SUBSCRIPTION[categoryToSubscribe] || false;
+const isCategorySubscribed = (categoryToSubscribe) => {
+  return SUBSCRIPTION[categoryToSubscribe] || NOT_SUBSCRIBED;
 };
 
-const checkIfSubscriptionIsStarted = () => {
-  return SUBSCRIPTION.startDate || false;
+const isSubscriptionStarted = () => {
+  return SUBSCRIPTION.isStarted || NOT_SUBSCRIBED;
 };
 
-const printSubscribedRenewalReminders = () => {
+const printReminders = () => {
   const renewalDetails = [];
 
-  for (const currentCategory of Object.keys(category)) {
-    if (checkIfSubscriptionExists(currentCategory)) {
+  for (const currentCategory of Object.keys(CATEGORY)) {
+    if (isCategorySubscribed(currentCategory)) {
       renewalDetails.push(`RENEWAL_REMINDER ${currentCategory} ${SUBSCRIPTION[currentCategory].renewalReminder}`);
     }
   }
@@ -25,14 +27,27 @@ const printSubscribedRenewalReminders = () => {
   return renewalDetails;
 };
 
-const outputErrorMessage = (type, message) => {
-  return type ? `${type} ${message}` : message;
+const isValidDate = (startDate) => {
+  return startDate === error.type.invalid_date;
+};
+
+const errorMessage = (error) => {
+  return error.type ? `${error.type} ${error.message}` : error.message;
+};
+
+const formatInput = (input) => {
+  const statement = input.split(' ');
+  const action = statement[STATEMENT.ACTION_INDEX];
+
+  return { action, statement };
 };
 
 module.exports = {
-  checkIfSubscribed,
-  checkIfSubscriptionExists,
-  checkIfSubscriptionIsStarted,
-  printSubscribedRenewalReminders,
-  outputErrorMessage,
+  isAnyCategorySubscribed,
+  isCategorySubscribed,
+  isSubscriptionStarted,
+  isValidDate,
+  printReminders,
+  errorMessage,
+  formatInput,
 };

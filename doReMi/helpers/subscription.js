@@ -1,16 +1,21 @@
-const { monthlyCostOfTopUp, costOfSubscriptionPlan } = require('../constants');
-const { renewalReminderDate } = require('../utils/date');
+const { TOP_UP_COST, PLAN_COST } = require('../constants');
+const { reminderDate } = require('../utils/date');
 
-const subscribeToTheCategory = (categoryToSubscribe, plan) => {
-  SUBSCRIPTION[categoryToSubscribe] = { plan };
-  SUBSCRIPTION[categoryToSubscribe] = { renewalReminder: renewalReminderDate(plan) };
+const subscribe = (startDate) => {
+  SUBSCRIPTION.startDate = startDate;
+  SUBSCRIPTION.isStarted = true;
+}
 
-  SUBSCRIPTION.renewalAmount = SUBSCRIPTION.renewalAmount + costOfSubscriptionPlan[categoryToSubscribe][plan];
+const subscribeCategory = (category, plan) => {
+  SUBSCRIPTION[category] = { plan };
+  SUBSCRIPTION[category] = { renewalReminder: reminderDate(plan) };
+
+  SUBSCRIPTION.renewalAmount = SUBSCRIPTION.renewalAmount + PLAN_COST[category][plan];
 };
 
-const topUpThePlan = (topUpType, noOfMonthsToTopUp) => {
+const topUpPlan = (type, months) => {
   SUBSCRIPTION.isToppedUp = true;
-  SUBSCRIPTION.renewalAmount += noOfMonthsToTopUp * monthlyCostOfTopUp[topUpType];
+  SUBSCRIPTION.renewalAmount += months * TOP_UP_COST[type];
 };
 
-module.exports = { subscribeToTheCategory, topUpThePlan };
+module.exports = { subscribe, subscribeCategory, topUpPlan };

@@ -1,8 +1,10 @@
 const { expect } = require('chai');
-const { processStatement } = require('./services/subscription');
+const StatementService = require('./services/statement');
 
 describe('Subscription', () => {
   it('should print the current error and details', () => {
+    const statementService = new StatementService();
+
     const inputLines = [
       'START_SUBSCRIPTION 25-07-2021',
       'ADD_SUBSCRIPTION MUSIC PREMIUM',
@@ -19,7 +21,7 @@ describe('Subscription', () => {
 
     let actualOutput = [];
     for (let i = 0; i < inputLines.length; i++) {
-      const result = processStatement(inputLines[i]);
+      const result = statementService.processStatement(inputLines[i]);
       if (result) actualOutput.push(...(result instanceof Array ? result : [result]));
     }
 
