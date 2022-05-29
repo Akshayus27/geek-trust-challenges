@@ -1,8 +1,9 @@
 const { expect } = require('chai');
-const { processStatement } = require('./services/bank');
+const StatementService = require('./services/statement');
 
 describe('processStatement', () => {
   it('should return the balance of the emi remaining', () => {
+    const statementService = new StatementService();
     const input = [
       'LOAN IDIDI Dale 10000 5 4',
       'LOAN MBI Harry 2000 2 2',
@@ -14,7 +15,7 @@ describe('processStatement', () => {
 
     const output = [];
     for (let i = 0; i < input.length; i++) {
-      const result = processStatement(input[i]);
+      const result = statementService.processStatement(input[i]);
       if (result) output.push(result);
     }
 
@@ -27,6 +28,7 @@ describe('processStatement', () => {
   });
 
   it('should return the correct balance of the emi remaining after lump payment', () => {
+    const statementService = new StatementService();
     const input = [
       'LOAN IDIDI Dale 5000 1 6',
       'LOAN MBI Harry 10000 3 7',
@@ -42,7 +44,7 @@ describe('processStatement', () => {
 
     const output = [];
     for (let i = 0; i < input.length; i++) {
-      const result = processStatement(input[i]);
+      const result = statementService.processStatement(input[i]);
       if (result) output.push(result);
     }
 
