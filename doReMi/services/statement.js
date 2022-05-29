@@ -15,11 +15,11 @@ module.exports = class StatementService {
   extractStatement = (action, statement) => {
     switch (action) {
       case ACTION.START_SUBSCRIPTION:
-        return { startDate: formatDate(statement[STATEMENT.COMMAND_INDEX]) };
+        return { startDate: formatDate(statement[STATEMENT.DATE_INDEX]) };
       case ACTION.ADD_SUBSCRIPTION:
-        return { category: statement[STATEMENT.COMMAND_INDEX], plan: statement[STATEMENT.OPTION_INDEX] };
+        return { category: statement[STATEMENT.CATEGORY_INDEX], plan: statement[STATEMENT.PLAN_INDEX] };
       case ACTION.ADD_TOPUP:
-        return { type: statement[STATEMENT.COMMAND_INDEX], months: +statement[STATEMENT.OPTION_INDEX] };
+        return { type: statement[STATEMENT.TYPE_INDEX], months: +statement[STATEMENT.MONTH_INDEX] };
       default:
         return {};
     }
