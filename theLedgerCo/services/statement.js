@@ -47,22 +47,6 @@ module.exports = class StatementService {
       lumpSumAmount = 0,
       emiNo = 0,
     } = this.extractStatement(action, statement);
-    // console.log(
-    //   `🚀 ~ file: statement.js ~ line 43 ~ StatementService ~ bankName = '',
-    //   borrowerName = '',
-    //   principal = 0,
-    //   noOfYears = 0,
-    //   rateOfInterest = 0,
-    //   lumpSumAmount = 0,
-    //   emiNo `,
-    //   bankName,
-    //   borrowerName,
-    //   principal,
-    //   noOfYears,
-    //   rateOfInterest,
-    //   lumpSumAmount,
-    //   emiNo
-    // );
 
     switch (action) {
       case ACTION.LOAN:
