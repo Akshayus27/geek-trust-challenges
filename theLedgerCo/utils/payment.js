@@ -19,23 +19,6 @@ const deducingEmisPaid = (transactionDetails, emiNo) => {
     : 0;
 };
 
-// const schedulingFutureEmis = (transactionDetails, EMI_NO) => {
-//   transactionDetails = transactionDetails.filter((transaction, idx) => {
-//     if (idx === ZEROTH_LOAN_PAYMENT) return true;
-//     return transaction.emiPayable > 0;
-//   });
-//   const currentTotalEmi = transactionDetails.length - 1;
-
-//   transactionDetails[EMI_NO].remainingEmi = currentTotalEmi - EMI_NO;
-
-//   for (let emiNo = EMI_NO + 1; emiNo <= currentTotalEmi; emiNo++) {
-//     transactionDetails[emiNo].remainingEmi = transactionDetails[emiNo - EMI.PREVIOUS_MONTH].remainingEmi - 1;
-//   }
-
-//   BANKS[BANK_NAME][BORROWER_NAME].transactionDetails = transactionDetails;
-//   return transactionDetails;
-// };
-
 module.exports = {
   availableLoanBalance,
   currentEmiPayable,
